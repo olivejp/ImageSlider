@@ -12,16 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyAdapter extends PagerAdapter {
 
     private ArrayList<Integer> images;
     private LayoutInflater inflater;
-    private Context context;
 
-    public MyAdapter(Context context, ArrayList<Integer> images) {
-        this.context = context;
-        this.images=images;
+    public MyAdapter(Context context, List<Integer> images) {
+        this.images= (ArrayList<Integer>) images;
         inflater = LayoutInflater.from(context);
     }
 
@@ -38,7 +37,7 @@ public class MyAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup view, int position) {
         View myImageLayout = inflater.inflate(R.layout.slide, view, false);
-        ImageView myImage = (ImageView) myImageLayout
+        ImageView myImage = myImageLayout
                 .findViewById(R.id.image);
         myImage.setImageResource(images.get(position));
         view.addView(myImageLayout, 0);
