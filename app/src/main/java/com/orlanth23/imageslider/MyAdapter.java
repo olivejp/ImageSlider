@@ -11,17 +11,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyAdapter extends PagerAdapter {
 
-    private ArrayList<Integer> images;
+    private ArrayList<String> images;
     private LayoutInflater inflater;
+    private Context mContext;
 
-    public MyAdapter(Context context, List<Integer> images) {
-        this.images= (ArrayList<Integer>) images;
-        inflater = LayoutInflater.from(context);
+    public MyAdapter(Context context, List<String> images) {
+        this.images = (ArrayList<String>) images;
+        this.mContext = context;
+        this.inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -39,7 +43,11 @@ public class MyAdapter extends PagerAdapter {
         View myImageLayout = inflater.inflate(R.layout.slide, view, false);
         ImageView myImage = myImageLayout
                 .findViewById(R.id.image);
-        myImage.setImageResource(images.get(position));
+
+        Glide.with(mContext)
+                .load(images.get(position))
+                .into(myImage);
+
         view.addView(myImageLayout, 0);
         return myImageLayout;
     }
